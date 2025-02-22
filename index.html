@@ -249,9 +249,10 @@
                     case 'pytanie3': pytanie3Zaznaczone = true; break;
                     case 'pytanie4': pytanie4Zaznaczone = true; break;
                     case 'pytanie5': pytanie5Zaznaczone = true; break;
-                }
+         }
             }
         }
+
 
         function wyslijWyniki() {
             let imie = document.getElementById("imie").value;
@@ -263,31 +264,12 @@
                 return;
             }
 
-            // Wyświetl wyniki
-            let wynikiElement = document.getElementById("wyniki");
-            wynikiElement.innerHTML = `
-                <h3>Twój wynik:</h3>
-                <p>Poprawne odpowiedzi: ${poprawneOdpowiedzi}</p>
-                <p>Błędne odpowiedzi: ${bledneOdpowiedzi}</p>
-            `;
 
             let daneGracza = `Imię: ${imie}\nNazwisko: ${nazwisko}\nWiek: ${wiek}\n`;
             let wszystkieWyniki = daneGracza + odpowiedzi.join("\n");
-
-            // Wysyłka e-maila przez EmailJS
-            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
-                imie: imie,
-                nazwisko: nazwisko,
-                wiek: wiek,
-                wyniki: wszystkieWyniki,
-                poprawne: poprawneOdpowiedzi,
-                bledne: bledneOdpowiedzi
-            })
-            .then(function(response) {
-                alert("Wyniki zostały wysłane!");
-            }, function(error) {
-                alert("Błąd podczas wysyłania wyników. Spróbuj ponownie.");
-            });
+            let docelowyEmail = "duralkuba@gmail.com";
+            let mailtoLink = `mailto:${docelowyEmail}?subject=Wyniki%20quizu&body=${encodeURIComponent(wszystkieWyniki)}`;
+            window.location.href = mailtoLink;
         }
     </script>
 </body>
