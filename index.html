@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Fragment z Ewangelii Marka</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #ffffff; /* Białe tło */
+            color: #686462; /* Szara czcionka */
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 2px solid #f7620e; /* Pomarańczowa ramka */
+            border-radius: 10px;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff; /* Białe tło */
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #f7620e; /* Pomarańczowy przycisk */
+            color: #ffffff; /* Biały tekst */
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #e65a0d; /* Ciemniejszy pomarańcz po najechaniu */
+        }
+        button:disabled {
+            background-color: #ccc; /* Szary przycisk po dezaktywacji */
+            cursor: not-allowed;
+        }
+        input {
+            margin: 5px;
+            padding: 10px;
+            width: 80%;
+            border: 1px solid #f7620e; /* Pomarańczowa ramka */
+            border-radius: 5px;
+            font-size: 16px;
+            color: #686462; /* Szara czcionka */
+        }
+        .bible-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            text-align: left;
+            background-color: #f7e448; /* Żółte tło */
+            padding: 15px;
+            border-left: 5px solid #f7620e; /* Pomarańczowa ramka */
+            border-radius: 5px;
+            color: #686462; /* Szara czcionka */
+        }
+        .bible-text h3 {
+            margin-top: 0;
+            font-size: 18px;
+            color: #686462; /* Szara czcionka */
+        }
+        .bible-text p {
+            margin: 5px 0;
+            font-size: 16px;
+            color: #686462; /* Szara czcionka */
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .question p {
+            font-weight: bold;
+            color: #686462; /* Szara czcionka */
+        }
+        .formularz-dane {
+            margin-bottom: 20px;
+        }
+        .formularz-dane input {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            width: 80%;
+            border: 1px solid #f7620e; /* Pomarańczowa ramka */
+            border-radius: 5px;
+            font-size: 16px;
+            color: #686462; /* Szara czcionka */
+        }
+        .naglowek-obrazek {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 2px solid #f7620e; /* Pomarańczowa ramka */
+        }
+        h2 {
+            color: #f7620e; /* Pomarańczowy nagłówek */
+        }
+        .stopka {
+            margin-top: 30px;
+            padding: 20px;
+            text-align: center;
+        }
+        .stopka img {
+            width: 100px; /* Dostosuj szerokość logo */
+            height: auto;
+            margin-bottom: 10px;
+        }
+        .stopka p {
+            font-size: 14px;
+            color: #686462; /* Szara czcionka */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Obrazek jako nagłówek -->
+        <img src="Projekt bez nazwy.jpg" alt="Nagłówek quizu" class="naglowek-obrazek">
+
+        <!-- Dodany fragment z Ewangelii Marka -->
+        <div class="bible-text">
+            <h3>Mk 10, 13-16</h3>
+            <p><strong>Jezus błogosławi dzieci</strong></p>
+            <p><sup>13</sup> Przynosili Mu również dzieci, żeby ich dotknął; lecz uczniowie szorstko zabraniali im tego. <sup>14</sup> A Jezus, widząc to, oburzył się i rzekł do nich: «Pozwólcie dzieciom przychodzić do Mnie, nie przeszkadzajcie im; do takich bowiem należy królestwo Boże. <sup>15</sup> Zaprawdę, powiadam wam: Kto nie przyjmie królestwa Bożego jak dziecko, ten nie wejdzie do niego». <sup>16</sup> I biorąc je w objęcia, kładł na nie ręce i błogosławił je.</p>
+        </div>
+
+        <!-- Formularz do podania danych -->
+        <div class="formularz-dane">
+            <h2>Podaj swoje dane</h2>
+            <input type="text" id="imie" placeholder="Imię" required>
+            <input type="text" id="nazwisko" placeholder="Nazwisko" required>
+            <input type="number" id="wiek" placeholder="Wiek" required>
+        </div>
+
+        <!-- Pytania quizu -->
+        <div class="question">
+            <p>1. Kto przynosił dzieci do Jezusa?</p>
+            <button onclick="odpowiedz('a', 'pytanie1')">a) Rodzice</button>
+            <button onclick="odpowiedz('b', 'pytanie1')">b) Zwierzęta</button>
+            <p id="wynikPytanie1"></p>
+        </div>
+
+        <div class="question">
+            <p>2. Co robili uczniowie, gdy przynoszono dzieci do Jezusa?</p>
+            <button onclick="odpowiedz('a', 'pytanie2')">a) Szorstko im zabraniali</button>
+            <button onclick="odpowiedz('b', 'pytanie2')">b) Pomagali im podejść do Jezusa</button>
+            <p id="wynikPytanie2"></p>
+        </div>
+
+        <div class="question">
+            <p>3. Jak Jezus zareagował, gdy uczniowie zabraniali dzieciom przychodzić do Niego?</p>
+            <button onclick="odpowiedz('a', 'pytanie3')">a) Oburzył się</button>
+            <button onclick="odpowiedz('b', 'pytanie3')">b) Uśmiechnął się i poszedł dalej</button>
+            <p id="wynikPytanie3"></p>
+        </div>
+
+        <div class="question">
+            <p>4. Do kogo należy królestwo Boże, według Jezusa?</p>
+            <button onclick="odpowiedz('a', 'pytanie4')">a) Do tych, którzy są jak dzieci</button>
+            <button onclick="odpowiedz('b', 'pytanie4')">b) Do tych, którzy są najsilniejsi</button>
+            <p id="wynikPytanie4"></p>
+        </div>
+
+        <div class="question">
+            <p>5. Co Jezus zrobił, gdy dzieci do Niego przyszły?</p>
+            <button onclick="odpowiedz('a', 'pytanie5')">a) Wziął je w objęcia i błogosławił</button>
+            <button onclick="odpowiedz('b', 'pytanie5')">b) Dał im słodycze i poszedł</button>
+            <p id="wynikPytanie5"></p>
+        </div>
+
+        <button onclick="wyslijWyniki()">Wyślij wynik</button>
+    </div>
+
+    <!-- Stopka z logo -->
+    <div class="stopka">
+        <img src="logo misja.jpg" alt="Logo">
+        <p>&copy; 2025 PMK Karlsruhe</p>
+    </div>
+
+    <script>
+        let odpowiedzi = [];
+        let pytanie1Zaznaczone = false;
+        let pytanie2Zaznaczone = false;
+        let pytanie3Zaznaczone = false;
+        let pytanie4Zaznaczone = false;
+        let pytanie5Zaznaczone = false;
+
+        function odpowiedz(odp, pytanie) {
+            let wynikElement, przyciski, zaznaczone;
+            switch (pytanie) {
+                case 'pytanie1':
+                    wynikElement = document.getElementById("wynikPytanie1");
+                    przyciski = document.querySelectorAll(".question:nth-child(4) button");
+                    zaznaczone = pytanie1Zaznaczone;
+                    break;
+                case 'pytanie2':
+                    wynikElement = document.getElementById("wynikPytanie2");
+                    przyciski = document.querySelectorAll(".question:nth-child(5) button");
+                    zaznaczone = pytanie2Zaznaczone;
+                    break;
+                case 'pytanie3':
+                    wynikElement = document.getElementById("wynikPytanie3");
+                    przyciski = document.querySelectorAll(".question:nth-child(6) button");
+                    zaznaczone = pytanie3Zaznaczone;
+                    break;
+                case 'pytanie4':
+                    wynikElement = document.getElementById("wynikPytanie4");
+                    przyciski = document.querySelectorAll(".question:nth-child(7) button");
+                    zaznaczone = pytanie4Zaznaczone;
+                    break;
+                case 'pytanie5':
+                    wynikElement = document.getElementById("wynikPytanie5");
+                    przyciski = document.querySelectorAll(".question:nth-child(8) button");
+                    zaznaczone = pytanie5Zaznaczone;
+                    break;
+            }
+
+            if (!zaznaczone) {
+                let tekst = odp === "a" ? "Poprawna odpowiedź! 👍" : "Niepoprawna odpowiedź! ❌";
+                wynikElement.innerText = tekst;
+                odpowiedzi.push(tekst);
+                przyciski.forEach(button => button.disabled = true);
+                switch (pytanie) {
+                    case 'pytanie1': pytanie1Zaznaczone = true; break;
+                    case 'pytanie2': pytanie2Zaznaczone = true; break;
+                    case 'pytanie3': pytanie3Zaznaczone = true; break;
+                    case 'pytanie4': pytanie4Zaznaczone = true; break;
+                    case 'pytanie5': pytanie5Zaznaczone = true; break;
+                }
+            }
+        }
+
+        function wyslijWyniki() {
+            let imie = document.getElementById("imie").value;
+            let nazwisko = document.getElementById("nazwisko").value;
+            let wiek = document.getElementById("wiek").value;
+
+            if (!imie || !nazwisko || !wiek) {
+                alert("Proszę wypełnić wszystkie pola formularza!");
+                return;
+            }
+
+            let daneGracza = `Imię: ${imie}\nNazwisko: ${nazwisko}\nWiek: ${wiek}\n`;
+            let wszystkieWyniki = daneGracza + odpowiedzi.join("\n");
+            let docelowyEmail = "duralkuba@gmail.com";
+            let mailtoLink = `mailto:${docelowyEmail}?subject=Wyniki%20quizu&body=${encodeURIComponent(wszystkieWyniki)}`;
+            window.location.href = mailtoLink;
+        }
+    </script>
+</body>
+</html>
