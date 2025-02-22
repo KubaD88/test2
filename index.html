@@ -121,7 +121,7 @@
     </style>
 </head>
 <body>
-     <div class="container">
+    <div class="container">
         <!-- Obrazek jako nagłówek -->
         <img src="Projekt bez nazwy.jpg" alt="Nagłówek quizu" class="naglowek-obrazek">
 
@@ -182,6 +182,12 @@
         <!-- Sekcja z wynikami -->
         <div class="wyniki" id="wyniki">
             <!-- Tutaj pojawią się wyniki -->
+        </div>
+
+        <!-- Podsumowanie wyników -->
+        <div class="wyniki" id="podsumowanie" style="display: none;">
+            <h3>Podsumowanie wyników</h3>
+            <p id="podsumowanieTekst"></p>
         </div>
     </div>
 
@@ -249,10 +255,9 @@
                     case 'pytanie3': pytanie3Zaznaczone = true; break;
                     case 'pytanie4': pytanie4Zaznaczone = true; break;
                     case 'pytanie5': pytanie5Zaznaczone = true; break;
-         }
+                }
             }
         }
-
 
         function wyslijWyniki() {
             let imie = document.getElementById("imie").value;
@@ -264,7 +269,20 @@
                 return;
             }
 
+            // Wyświetl podsumowanie wyników
+            let podsumowanieElement = document.getElementById("podsumowanie");
+            let podsumowanieTekst = document.getElementById("podsumowanieTekst");
+            podsumowanieTekst.innerHTML = `
+                <strong>Imię:</strong> ${imie}<br>
+                <strong>Nazwisko:</strong> ${nazwisko}<br>
+                <strong>Wiek:</strong> ${wiek}<br>
+                <strong>Poprawne odpowiedzi:</strong> ${poprawneOdpowiedzi}<br>
+                <strong>Błędne odpowiedzi:</strong> ${bledneOdpowiedzi}<br>
+                <strong>Wynik:</strong> ${(poprawneOdpowiedzi / 5 * 100).toFixed(2)}%
+            `;
+            podsumowanieElement.style.display = "block";
 
+            // Wysyłanie wyników na e-mail
             let daneGracza = `Imię: ${imie}\nNazwisko: ${nazwisko}\nWiek: ${wiek}\n`;
             let wszystkieWyniki = daneGracza + odpowiedzi.join("\n");
             let docelowyEmail = "duralkuba@gmail.com";
