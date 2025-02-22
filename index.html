@@ -113,10 +113,15 @@
             font-size: 14px;
             color: #686462; /* Szara czcionka */
         }
+        .wyniki {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #f7620e; /* Pomarańczowy tekst */
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+     <div class="container">
         <!-- Obrazek jako nagłówek -->
         <img src="Projekt bez nazwy.jpg" alt="Nagłówek quizu" class="naglowek-obrazek">
 
@@ -171,17 +176,25 @@
             <p id="wynikPytanie5"></p>
         </div>
 
+        <!-- Przycisk do wysyłania wyników -->
         <button onclick="wyslijWyniki()">Wyślij wynik</button>
+
+        <!-- Sekcja z wynikami -->
+        <div class="wyniki" id="wyniki">
+            <!-- Tutaj pojawią się wyniki -->
+        </div>
     </div>
 
     <!-- Stopka z logo -->
     <div class="stopka">
         <img src="logo misja.jpg" alt="Logo">
-        <p>&copy; 2025 PMK Karlsruhe</p>
+        <p>&copy; 2025 PMK KARLSRUHE Wszystkie prawa zastrzeżone.</p>
     </div>
 
     <script>
         let odpowiedzi = [];
+        let poprawneOdpowiedzi = 0;
+        let bledneOdpowiedzi = 0;
         let pytanie1Zaznaczone = false;
         let pytanie2Zaznaczone = false;
         let pytanie3Zaznaczone = false;
@@ -219,7 +232,14 @@
             }
 
             if (!zaznaczone) {
-                let tekst = odp === "a" ? "Poprawna odpowiedź! 👍" : "Niepoprawna odpowiedź! ❌";
+                let tekst;
+                if (odp === "a") {
+                    tekst = "Poprawna odpowiedź! 👍";
+                    poprawneOdpowiedzi++;
+                } else {
+                    tekst = "Niepoprawna odpowiedź! ❌";
+                    bledneOdpowiedzi++;
+                }
                 wynikElement.innerText = tekst;
                 odpowiedzi.push(tekst);
                 przyciski.forEach(button => button.disabled = true);
@@ -243,11 +263,31 @@
                 return;
             }
 
+            // Wyświetl wyniki
+            let wynikiElement = document.getElementById("wyniki");
+            wynikiElement.innerHTML = `
+                <h3>Twój wynik:</h3>
+                <p>Poprawne odpowiedzi: ${poprawneOdpowiedzi}</p>
+                <p>Błędne odpowiedzi: ${bledneOdpowiedzi}</p>
+            `;
+
             let daneGracza = `Imię: ${imie}\nNazwisko: ${nazwisko}\nWiek: ${wiek}\n`;
             let wszystkieWyniki = daneGracza + odpowiedzi.join("\n");
-            let docelowyEmail = "duralkuba@gmail.com";
-            let mailtoLink = `mailto:${docelowyEmail}?subject=Wyniki%20quizu&body=${encodeURIComponent(wszystkieWyniki)}`;
-            window.location.href = mailtoLink;
+
+            // Wysyłka e-maila przez EmailJS
+            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+                imie: imie,
+                nazwisko: nazwisko,
+                wiek: wiek,
+                wyniki: wszystkieWyniki,
+                poprawne: poprawneOdpowiedzi,
+                bledne: bledneOdpowiedzi
+            })
+            .then(function(response) {
+                alert("Wyniki zostały wysłane!");
+            }, function(error) {
+                alert("Błąd podczas wysyłania wyników. Spróbuj ponownie.");
+            });
         }
     </script>
 </body>
